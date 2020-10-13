@@ -6,7 +6,7 @@ import TodoList from './todo/TodoList';
 const AppContainer = styled.div`
     display: flex;
     align-items: stretch;
-
+    height: 100%;
 `;
 
 const App = () => {
