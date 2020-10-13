@@ -1,14 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+import Timer from './timer/Timer';
+import TodoList from './todo/TodoList';
 
-const Title = styled.h1`
-  font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+const AppContainer = styled.div`
+    display: flex;
+    align-items: stretch;
+
 `;
 
-function App() {
-  return (
-    <Title>Hello</Title>
-  );
-}
+const App = () => {
+    return (
+        <AppContainer>
+            <TodoList/>
+            <Timer/>
+        </AppContainer>
+    );
+};
 
 export default App;
