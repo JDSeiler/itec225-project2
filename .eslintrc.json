@@ -1,7 +1,12 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2020": true
+    },
+    "settings": {
+        "react": {
+            "version": "latest"
+        }
     },
     "extends": [
         "eslint:recommended",
@@ -11,11 +16,12 @@
         "ecmaFeatures": {
             "jsx": true
         },
-        "ecmaVersion": 12,
+        "ecmaVersion": 11,
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "@typescript-eslint"
     ],
     "rules": {
         "indent": [
@@ -27,7 +33,7 @@
             "unix"
         ],
         "quotes": [
-            "error",
+            "warn",
             "single"
         ],
         "semi": [
