@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SubmissionFormContainer = styled.div`
-    flex: 2;
+    flex: 2 0 0;
     width: 100%;
     background: lightslategray;
 `;
