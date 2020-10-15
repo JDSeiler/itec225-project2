@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Task from './Task';
 
@@ -16,14 +16,30 @@ const TaskAreaContainer = styled.div`
     background: honeydew;
 `;
 
-const TaskArea = () => {    
+const TaskArea = () => {
+    const dummyTasks = [
+        {
+            title: 'This is Task 1, with a description',
+            description: 'Description here!'
+        },
+        {
+            title: 'This is Task 2, just a title!'
+        }
+    ];
+
+
+    // eslint-disable-next-line no-unused-vars
+    const [tasks, setTasks] = useState(dummyTasks);
     return(
         <TaskAreaWrapper>
             <TaskAreaContainer>
-                <Task title="This is Task 1" description="This is the task description"></Task>
-                <Task title="This is Task 2"></Task>
-                <Task title="This is Task 3" description="Another thing with a description"></Task>
-                <Task title="This is Task 4"></Task>
+                {tasks.map((element) => {
+                    if (typeof element.description !== 'undefined') {
+                        return (<Task title={element.title} description={element.description}/>);
+                    } else {
+                        return (<Task title={element.title}/>);
+                    }
+                })}
             </TaskAreaContainer>
         </TaskAreaWrapper>);
 };

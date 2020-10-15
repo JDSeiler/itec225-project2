@@ -13,7 +13,7 @@ type TaskProps = {
 
 const Task = ({title, description}: TaskProps) => {
     console.log(description)
-    description = typeof description === "undefined" ? null : description;
+    description = typeof description === 'undefined' ? null : description;
 
     return(
         <TaskContainer>
