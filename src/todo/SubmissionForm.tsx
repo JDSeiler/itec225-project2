@@ -56,7 +56,7 @@ interface FormState {
     desc: string
 }
 
-class SubmissionForm extends React.Component<{}, FormState> {
+class SubmissionForm extends React.Component<any, FormState> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -78,8 +78,12 @@ class SubmissionForm extends React.Component<{}, FormState> {
     }
 
     handleSubmit(event: any) {
-        alert('Submitted: ' + this.state.title + ' ' + this.state.desc);
-
+        const newTask = {
+            title: this.state.title,
+            description: this.state.desc === '' ? undefined : this.state.desc
+        };
+        this.props.addTaskCallback(newTask);
+        this.setState({title: '', desc: ''});
         event.preventDefault();
     }
     

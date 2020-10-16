@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const TaskContainer = styled.div`
     align-self: flex-start;
     margin-left: 1em;
-`
+`;
 
 type TaskProps = {
     title: string,
@@ -12,7 +12,6 @@ type TaskProps = {
 };
 
 const Task = ({title, description}: TaskProps) => {
-    console.log(description)
     description = typeof description === 'undefined' ? null : description;
 
     return(
@@ -21,6 +20,6 @@ const Task = ({title, description}: TaskProps) => {
             <p>{description}</p>
         </TaskContainer>
     );
-}
+};
 
 export default Task;
