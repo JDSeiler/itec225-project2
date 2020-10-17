@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
 
 const SubmissionFormContainer = styled.div`
     flex: 2 0 0;
@@ -79,6 +80,7 @@ class SubmissionForm extends React.Component<any, FormState> {
 
     handleSubmit(event: any) {
         const newTask = {
+            id: uuidv4(),
             title: this.state.title,
             description: this.state.desc === '' ? undefined : this.state.desc
         };

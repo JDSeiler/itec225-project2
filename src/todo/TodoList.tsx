@@ -4,6 +4,8 @@ import Header from './Header';
 import SubmissionForm from './SubmissionForm';
 import TaskArea from './TaskArea';
 
+import { v4 as uuidv4 } from 'uuid';
+
 const TodoListWrapper = styled.div`
     flex: 1;
     background: grey;
@@ -19,9 +21,8 @@ const TodoListFlexContainer = styled.div`
     height: 100%;
 `;
 
-
-
 type TaskData = {
+    id: string,
     title: string,
     description: string | undefined
 };
@@ -36,14 +37,17 @@ class TodoList extends React.Component<{}, TodoListState> {
         this.state = {
             tasks: [
                 {
+                    id: uuidv4(),
                     title: 'This is Task 1, with a description',
                     description: 'Description here!'
                 },
                 {
+                    id: uuidv4(),
                     title: 'This is Task 2, just a title!',
                     description: undefined
                 },
                 {
+                    id: uuidv4(),
                     title: 'This is Task 3',
                     description: undefined
                 },
@@ -51,11 +55,24 @@ class TodoList extends React.Component<{}, TodoListState> {
         };
 
         this.addTask = this.addTask.bind(this);
+        this.deleteTask = this.deleteTask.bind(this);
     }
 
     addTask(task: TaskData) {
         this.setState((prevState) => {
             return {tasks: [...prevState.tasks, task]};
+        });
+    }
+
+    deleteTask(targetTaskId: string) {
+        let oldTaskList = this.state.tasks;
+
+        let newTaskList = oldTaskList.filter((task) => {
+            return task.id !== targetTaskId;
+        });
+
+        this.setState(() => {
+            return {tasks: newTaskList};
         });
     }
     
@@ -64,15 +81,13 @@ class TodoList extends React.Component<{}, TodoListState> {
             <TodoListWrapper>
                 <TodoListFlexContainer>
                     <Header/>
-                    <TaskArea taskList={this.state.tasks}/>
+                    <TaskArea taskList={this.state.tasks} deleteTaskCallback={this.deleteTask}/>
                     <SubmissionForm addTaskCallback={this.addTask}/>
                 </TodoListFlexContainer>
             </TodoListWrapper>
         );
-
     }
-
-};
+}
 
 export default TodoList;
 

@@ -16,14 +16,16 @@ const TaskAreaContainer = styled.div`
     background: honeydew;
 `;
 
-
+// TODO: Sync this with the TodoList, import types is odd.
 type TaskData = {
+    id: string;
     title: string,
     description: string | undefined
 };
 
 type TaskAreaProps = {
-    taskList: TaskData[]
+    taskList: TaskData[],
+    deleteTaskCallback: Function
 };
 
 const TaskArea = (props: TaskAreaProps) => {
@@ -32,9 +34,20 @@ const TaskArea = (props: TaskAreaProps) => {
             <TaskAreaContainer>
                 {props.taskList.map((element: TaskData) => {
                     if (typeof element.description !== 'undefined') {
-                        return (<Task title={element.title} description={element.description}/>);
+                        return (<Task 
+                            key={element.id}
+                            id={element.id} 
+                            title={element.title} 
+                            description={element.description} 
+                            deleteSelfCallback={props.deleteTaskCallback}/>
+                        );
                     } else {
-                        return (<Task title={element.title}/>);
+                        return (<Task 
+                            key={element.id}
+                            id={element.id} 
+                            title={element.title} 
+                            deleteSelfCallback={props.deleteTaskCallback}/>
+                        );
                     }
                 })}
             </TaskAreaContainer>

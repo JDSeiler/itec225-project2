@@ -3,21 +3,46 @@ import styled from 'styled-components';
 
 const TaskContainer = styled.div`
     align-self: flex-start;
-    margin-left: 1em;
+    padding-left: 1em;
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+`;
+
+const TaskText = styled.div`
+    flex-grow: 2;
+`;
+
+const Button = styled.div`
+    justify-self: end;
+    align-self: center;
+    #delete {
+        color: white;
+        font-size: 1em;
+        background: #911917;
+        border-radius: 15px;
+    }
 `;
 
 type TaskProps = {
+    id: string,
     title: string,
-    description?: string | null
+    description?: string | null,
+    deleteSelfCallback: Function,
 };
 
-const Task = ({title, description}: TaskProps) => {
+const Task = ({id, title, description, deleteSelfCallback}: TaskProps) => {
     description = typeof description === 'undefined' ? null : description;
 
     return(
         <TaskContainer>
-            <p>{title}</p>
-            <p>{description}</p>
+            <TaskText>
+                <p>{title}</p>
+                <p>{description}</p>
+            </TaskText>
+            <Button>
+                <button id="delete" onClick={() => deleteSelfCallback(id)}>X</button>
+            </Button>
         </TaskContainer>
     );
 };
