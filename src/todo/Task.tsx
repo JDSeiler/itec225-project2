@@ -3,19 +3,37 @@ import styled from 'styled-components';
 
 const TaskContainer = styled.div`
     align-self: flex-start;
-    padding-left: 1em;
-    width: 90%;
+    width: 100%;
+    max-width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+
+    margin-bottom: 1em;
+
+    -webkit-box-shadow: 0px 8px 14px 0px rgba(0,0,0,0.37);
+    -moz-box-shadow: 0px 8px 14px 0px rgba(0,0,0,0.37);
+    box-shadow: 0px 8px 14px 0px rgba(0,0,0,0.37);
 `;
 
 const TaskText = styled.div`
-    flex-grow: 2;
+    flex-grow: 1;
+    font-family: 'Roboto Condensed', sans-serif;
+    padding-left: 1em;
+
+    #title {
+        font-weight: bold;
+    }
+
+    hr {
+        max-width: 80%;
+        margin: 0;
+    }
 `;
 
 const Button = styled.div`
     justify-self: end;
     align-self: center;
+    padding-right: 1em;
     #delete {
         color: white;
         font-size: 1em;
@@ -37,8 +55,9 @@ const Task = ({id, title, description, deleteSelfCallback}: TaskProps) => {
     return(
         <TaskContainer>
             <TaskText>
-                <p>{title}</p>
-                <p>{description}</p>
+                <p id="title">{title}</p>
+                {description && <hr></hr>}
+                <p id="desc">{description}</p>
             </TaskText>
             <Button>
                 <button id="delete" onClick={() => deleteSelfCallback(id)}>X</button>

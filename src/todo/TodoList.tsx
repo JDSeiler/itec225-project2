@@ -8,7 +8,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 const TodoListWrapper = styled.div`
     flex: 1;
-    background: grey;
     max-width: 33%;
     height: 100%;
 `;
@@ -44,11 +43,6 @@ class TodoList extends React.Component<{}, TodoListState> {
                 {
                     id: uuidv4(),
                     title: 'This is Task 2, just a title!',
-                    description: undefined
-                },
-                {
-                    id: uuidv4(),
-                    title: 'This is Task 3',
                     description: undefined
                 },
             ]

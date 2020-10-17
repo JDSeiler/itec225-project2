@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 const SubmissionFormContainer = styled.div`
     flex: 2 0 0;
     width: 100%;
-    background: lightslategray;
+    background: #DDDDDD;
 `;
 
 const Form = styled.form`
@@ -34,6 +34,8 @@ const AddTaskButton = styled.input`
     background-color: #05763D;
     border-style: none;
     color: white;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: bold;
 
     &:disabled {
         background-color: lightgrey;

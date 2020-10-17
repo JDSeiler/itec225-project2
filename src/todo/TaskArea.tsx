@@ -5,7 +5,6 @@ import Task from './Task';
 const TaskAreaWrapper = styled.div`
     flex: 7 0 0;
     overflow: auto;
-    background: green;
     width: 100%;
 `;
 
@@ -13,7 +12,6 @@ const TaskAreaContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    background: honeydew;
 `;
 
 // TODO: Sync this with the TodoList, import types is odd.
