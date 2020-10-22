@@ -4,9 +4,7 @@ import styled from 'styled-components';
 const PomodoroBlocksTitle = styled.h1`
     font-family: 'Roboto Condensed', sans-serif;
     text-align: center;
-
-    padding-top: 1.5em;
-    padding-bottom: 1.5em;
+    padding-bottom: 1em;
 `;
 
 const PomodoroFlexContainer = styled.div`
@@ -21,7 +19,7 @@ const PomodoroBlock = styled.div`
     height: 8em;
     border-radius: 15px;
 
-    background: ${props => props.statusColor || "darkred"};
+    background: ${props => props.statusColor || 'darkred'};
 `;
 
 

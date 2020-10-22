@@ -5,8 +5,6 @@ const ButtonsContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    
-    padding-top: 4.5em;
 `;
 
 const ControlButton = styled.button`
@@ -32,12 +30,18 @@ const StopButton = styled(ControlButton)`
     color: white;
 `;
 
-const TimerControls  = () => {
+interface TimerControlsProps {
+    startCallback: Function,
+    resetCallback: Function,
+    stopCallback: Function
+}
+
+const TimerControls  = (props: TimerControlsProps) => {
     return(
         <ButtonsContainer>
-            <StartButton>Start</StartButton>
-            <ControlButton>Reset</ControlButton>
-            <StopButton>Stop</StopButton>
+            <StartButton onClick={() => props.startCallback()}>Start</StartButton>
+            <ControlButton onClick={() => props.resetCallback()}>Reset</ControlButton>
+            <StopButton onClick={() => props.stopCallback()}>Stop</StopButton>
         </ButtonsContainer>
     );
 };
