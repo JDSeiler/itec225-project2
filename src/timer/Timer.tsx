@@ -29,8 +29,20 @@ const TimerFlexContinaer = styled.div`
     -webkit-box-shadow: 10px 10px 30px -10px rgba(0,0,0,0.75);
 `;
 
+
+export enum IntervalType {
+    // eslint-disable-next-line no-unused-vars
+    WorkPeriod,
+    // eslint-disable-next-line no-unused-vars
+    ShortBreak,
+    // eslint-disable-next-line no-unused-vars
+    LongBreak
+}
+
 interface TimerState {
-    timerValue: number
+    timerValue: number,
+    intervalType: IntervalType,
+    completedPomodoroCount: number,
 }
 
 class Timer extends React.Component<{}, TimerState> {
@@ -49,7 +61,9 @@ class Timer extends React.Component<{}, TimerState> {
         this.stopTimer = this.stopTimer.bind(this);
 
         this.state = {
-            timerValue: 5
+            timerValue: this.WORK_DURATION,
+            intervalType: IntervalType.WorkPeriod,
+            completedPomodoroCount: 1
         };
     }
     
@@ -77,31 +91,76 @@ class Timer extends React.Component<{}, TimerState> {
         if(this.state.timerValue === 0) {
             clearInterval(this.ticker);
             this.ticker = null;
+
             if (Notification.permission === 'granted') {
                 new Notification('Timer completed!');
             }
+
+            this.handleTimerCompletion();
         } else {
             this.setState((prevState) => {
                 return { timerValue: prevState.timerValue-1 };
             });
         }
     }
+
+    handleTimerCompletion() {
+        if (this.state.intervalType === IntervalType.WorkPeriod) {
+            if (this.state.completedPomodoroCount < 4) {
+                this.setUpShortBreak();
+            } else {
+                this.setUpLongBreak();
+            }
+        } else if (this.state.intervalType === IntervalType.ShortBreak) {
+            this.setState((prevState) => {
+                return {...prevState, completedPomodoroCount: prevState.completedPomodoroCount + 1};
+            });
+            this.setUpWorkPeriod();
+        } else if (this.state.intervalType === IntervalType.LongBreak) {
+            this.resetTimer();
+        }
+    }
     
-    startTimer() {
-        this.advanceTimer();
+    setUpWorkPeriod() {
+        this.setState((prevState) => {
+            return {...prevState, timerValue: this.WORK_DURATION, intervalType: IntervalType.WorkPeriod};
+        });
+    }
+        
+    setUpShortBreak() {
+        this.setState((prevState) => {
+            return {...prevState, timerValue: this.SHORT_BREAK_DURATION, intervalType: IntervalType.ShortBreak};
+        });
         if(!this.ticker) this.ticker = setInterval(this.advanceTimer, 1000);
     }
 
+    setUpLongBreak() {
+        this.setState((prevState) => {
+            return {...prevState, timerValue: this.LONG_BREAK_DURATION, intervalType: IntervalType.LongBreak};
+        });
+        if(!this.ticker) this.ticker = setInterval(this.advanceTimer, 1000);
+    }
+    
+    startTimer() {
+        if(!this.ticker) { 
+            this.advanceTimer();
+            this.ticker = setInterval(this.advanceTimer, 1000);
+        }
+    }
+
     resetTimer() {
-        this.stopTimer();
+        clearInterval(this.ticker);
+        this.ticker = null;
         this.setState(() => {
-            return { timerValue: 10 };
+            return { timerValue: 3, intervalType: IntervalType.WorkPeriod, completedPomodoroCount: 1 };
         });
     }
 
     stopTimer() {
-        clearInterval(this.ticker);
-        this.ticker = null;
+        if(this.state.intervalType === IntervalType.WorkPeriod) {
+            clearInterval(this.ticker);
+            this.ticker = null;
+        }
     }
 
     render() {
@@ -110,7 +169,7 @@ class Timer extends React.Component<{}, TimerState> {
                 <TimerFlexContinaer>
                     <TimerDisplay seconds={this.state.timerValue}/>
                     <TimerControls startCallback={this.startTimer} resetCallback={this.resetTimer} stopCallback={this.stopTimer}/>
-                    <PomodoroBlocks/>
+                    <PomodoroBlocks pomodoroCount={this.state.completedPomodoroCount} intervalType={this.state.intervalType}/>
                 </TimerFlexContinaer>
             </TimerWrapper>
         );
