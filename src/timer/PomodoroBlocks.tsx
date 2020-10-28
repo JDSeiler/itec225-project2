@@ -15,6 +15,10 @@ const PomodoroFlexContainer = styled.div`
     justify-content: space-around;
 `;
 
+const IntervalDescription = styled(PomodoroBlocksTitle)`
+    padding-bottom: 0;
+`;
+
 
 const PomodoroBlock = styled.div<{ statusColor?: string }>`
     width: 8em;
@@ -51,6 +55,9 @@ const PomodoroBlocks = (props: PomodoroBlocksProps) => {
                 <PomodoroBlock statusColor={determineBlockState(props, 3)}/>
                 <PomodoroBlock statusColor={determineBlockState(props, 4)}/>
             </PomodoroFlexContainer>
+            {props.intervalType !== IntervalType.WorkPeriod ? 
+                <IntervalDescription>Break Time!</IntervalDescription> : 
+                <IntervalDescription>Get to work!</IntervalDescription>}
         </div>
     );
 };

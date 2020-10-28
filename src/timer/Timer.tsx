@@ -92,10 +92,6 @@ class Timer extends React.Component<{}, TimerState> {
             clearInterval(this.ticker);
             this.ticker = null;
 
-            if (Notification.permission === 'granted') {
-                new Notification('Timer completed!');
-            }
-
             this.handleTimerCompletion();
         } else {
             this.setState((prevState) => {
@@ -122,12 +118,18 @@ class Timer extends React.Component<{}, TimerState> {
     }
     
     setUpWorkPeriod() {
+        if (Notification.permission === 'granted') {
+            new Notification('Break time is over! Start your next Pomodoro!');
+        }
         this.setState((prevState) => {
             return {...prevState, timerValue: this.WORK_DURATION, intervalType: IntervalType.WorkPeriod};
         });
     }
         
     setUpShortBreak() {
+        if (Notification.permission === 'granted') {
+            new Notification('Your work period has finished! You\'re now on break!');
+        }
         this.setState((prevState) => {
             return {...prevState, timerValue: this.SHORT_BREAK_DURATION, intervalType: IntervalType.ShortBreak};
         });
@@ -135,6 +137,9 @@ class Timer extends React.Component<{}, TimerState> {
     }
 
     setUpLongBreak() {
+        if (Notification.permission === 'granted') {
+            new Notification('Enjoy this long break, you earned it!');
+        }
         this.setState((prevState) => {
             return {...prevState, timerValue: this.LONG_BREAK_DURATION, intervalType: IntervalType.LongBreak};
         });
@@ -152,7 +157,7 @@ class Timer extends React.Component<{}, TimerState> {
         clearInterval(this.ticker);
         this.ticker = null;
         this.setState(() => {
-            return { timerValue: 3, intervalType: IntervalType.WorkPeriod, completedPomodoroCount: 1 };
+            return { timerValue: this.WORK_DURATION, intervalType: IntervalType.WorkPeriod, completedPomodoroCount: 1 };
         });
     }
 
