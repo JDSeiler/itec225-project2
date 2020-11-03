@@ -5,7 +5,7 @@ First, install all dependencies with `yarn` or `npm install`.
 
 Second, run `npm start` or `yarn start`. This command will start
 a local development server on localhost:3000 as well as the LAN
-address of your machine (192.168.0.xxx). 
+address of your machine (192.168.0.xxx or 10.0.0.xxx). 
 
 If the application is
 accessed via the LAN address, the notification features of the app
