@@ -92,6 +92,8 @@ class SubmissionForm extends React.Component<any, FormState> {
     }
     
     render() {
+        // Putting state inside an attribute in conjunction with an onChange
+        // callback is how React handles data binding.
         return(<SubmissionFormContainer>
             <Form onSubmit={this.handleSubmit}>
                 <TitleField id="title" 

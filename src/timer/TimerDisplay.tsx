@@ -5,7 +5,6 @@ const TimerTextWrapper = styled.div`
     text-align: center;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 4.5em;
-    /* padding-top: 1.5em; */
 `;
 
 interface TimerDisplayProps {
@@ -16,6 +15,8 @@ const TimerDisplay = (props: TimerDisplayProps) => {
     let minutes = Math.floor(props.seconds / 60);
     let seconds = props.seconds % 60;
 
+    // Ternary to either append a leading 0 (if the number is single digit)
+    // or use the number as is.
     let displayedMinutes = minutes < 10 ? '0' + minutes : minutes.toString();
     let displayedSeconds = seconds < 10 ? '0' + seconds : seconds.toString();
 

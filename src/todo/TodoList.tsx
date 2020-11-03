@@ -20,6 +20,8 @@ const TodoListFlexContainer = styled.div`
     height: 100%;
 `;
 
+// The id field is more accurately a uuid, which is a long string of
+// "random" characters that are used to identify tasks.
 type TaskData = {
     id: string,
     title: string,
@@ -48,6 +50,8 @@ class TodoList extends React.Component<{}, TodoListState> {
             ]
         };
 
+        // Method binding is a quirk of React, it's just something you have
+        // to do to get methods to work properly.
         this.addTask = this.addTask.bind(this);
         this.deleteTask = this.deleteTask.bind(this);
     }

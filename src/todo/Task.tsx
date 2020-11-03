@@ -52,6 +52,8 @@ type TaskProps = {
 const Task = ({id, title, description, deleteSelfCallback}: TaskProps) => {
     description = typeof description === 'undefined' ? null : description;
 
+    // Only renders the description if it's a truthy value.
+    // This works because logical operators in JS are expressions.
     return(
         <TaskContainer>
             <TaskText>

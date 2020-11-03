@@ -87,6 +87,12 @@ class Timer extends React.Component<{}, TimerState> {
         }
     }
     
+    /**
+     * Handles the "ticking" of the timer. Every second this
+     * method will either advance the timer 1 second (by subtracting
+     * a second from the remaining duration) or will stop the timer
+     * and call #handleTimerCompletion()
+     */
     advanceTimer() {
         if(this.state.timerValue === 0) {
             clearInterval(this.ticker);
@@ -100,6 +106,11 @@ class Timer extends React.Component<{}, TimerState> {
         }
     }
 
+    /**
+     * When the timer finishes (reaches 0 seconds) this
+     * function handles what happens after that according
+     * to the rules of Pomodoro.
+     */
     handleTimerCompletion() {
         if (this.state.intervalType === IntervalType.WorkPeriod) {
             if (this.state.completedPomodoroCount < 4) {
@@ -147,6 +158,8 @@ class Timer extends React.Component<{}, TimerState> {
     }
     
     startTimer() {
+        // If this.ticker is truthy, the timer is already running
+        // so clicking Start should do nothing.
         if(!this.ticker) { 
             this.advanceTimer();
             this.ticker = setInterval(this.advanceTimer, 1000);
@@ -162,6 +175,8 @@ class Timer extends React.Component<{}, TimerState> {
     }
 
     stopTimer() {
+        // Only allow the timer to be paused during work periods
+        // Otherwise a break could be extended forever.
         if(this.state.intervalType === IntervalType.WorkPeriod) {
             clearInterval(this.ticker);
             this.ticker = null;

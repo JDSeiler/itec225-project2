@@ -14,7 +14,8 @@ const TaskAreaContainer = styled.div`
     width: 100%;
 `;
 
-// TODO: Sync this with the TodoList, import types is odd.
+// Should be the same as the type in TodoList.tsx
+// Didn't have time to centralize the type definitions
 type TaskData = {
     id: string;
     title: string,
