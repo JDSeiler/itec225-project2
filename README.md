@@ -15,8 +15,8 @@ on non-localhost domains that are not using HTTPS.
 ## Suggested Code Reading Order
 The root component of the application is `App.js`, so start there. 
 Then read `Timer.tsx` and `TodoList.tsx` in whatever order is desired.
-The rest of the components can be read in any order since there is only
-one level of nesting below of the main components (Timer or TodoList)
+The rest of the components can be read in any order since they are all
+more or less direct children of one of the main components.
 
 ## What other files and folders are for
 `public` is the folder that contains the `index.html` file React uses
